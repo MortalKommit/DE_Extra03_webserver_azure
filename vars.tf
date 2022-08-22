@@ -8,9 +8,9 @@ variable "project" {
   default = "Deploy Web Server in Azure"
 }
 
-variable "rgname" {
-  description = "The existing resource group to be used for resource creation"
-  default     = "Azuredevops"
+variable "tenant_id" {
+  description = "Azure Service Principal Tenant ID"
+  default = ""
 }
 
 variable "prefix" {
