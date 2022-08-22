@@ -8,7 +8,7 @@ variable "project" {
   default = "Deploy Web Server in Azure"
 }
 
-variable "tenant_id" {
+variable "ARM_TENANT_ID" {
   description = "Azure Service Principal Tenant ID"
   default = ""
 }

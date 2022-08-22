@@ -17,7 +17,8 @@ Substitute your subscription ID below.
 az ad sp create-for-rbac -n "PackerApp" --role Contributor --scopes /subscriptions/{subscriptionId}
 ```
 
-3. Store the generated client id/application id, subscription id, and client secret in environment variable. These will be used to authenticate packer. For terraform we authenticate via Azure CLI Login. Use az login to open a browser window for authentication.
+3. Store the generated client id/application id, subscription id, and client secret in environment variable. These will be used to authenticate packer. For terraform authentication can be done via Azure CLI Login by running az login to open a browser window, or  
+by using a service principal. The code template for this project uses a service principal.
 
 4. Azure has to be configured as a provider for Terraform before it can be used to create resources. Run the command 
 ```
@@ -43,7 +44,11 @@ az policy assignment create --policy tagging-policy --description "Apply tagging
 to assign the tagging policy.
 
 3. Modify the server.json packer template to change image SKU, OS or configuration. The managed image name here will be used with terraform to create virtual machine resources.  
-4. Make sure the environment variables ARM_CLIENT_ID, ARM_SUBSCRIPTION_ID, ARM_CLIENT_SECRET are set. To deploy terraform using a service principal, the variable ARM_TENANT_ID will also need to be set and referenced in main.tf.
+4. Make sure the environment variables ARM_CLIENT_ID, ARM_SUBSCRIPTION_ID, ARM_CLIENT_SECRET are set. To deploy terraform using a service principal, the variable ARM_TENANT_ID will also need to be set and referenced in main.tf. Use
+```
+ export TF_VAR_ARM_TENANT_ID='###enter tenant id here###'
+```
+to set the Tenant ID.  
 5. Run packer build server.json to have packer create the base Virtual Machine Image. Make sure you are authenticated (via service principal) before running the command.  
 6. Modify the values in vars.tf to change tags, environments, resource name prefix, IP address ranges, passwords and the number of
 virtual machines to be created.

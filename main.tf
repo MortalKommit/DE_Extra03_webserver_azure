@@ -1,6 +1,6 @@
 provider "azurerm" {
   features {}
-  tenant_id     = "${var.tenant_id}"
+  tenant_id     = "${var.ARM_TENANT_ID}"
 }
 
 locals {
